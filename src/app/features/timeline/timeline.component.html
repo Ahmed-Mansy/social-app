@@ -1,0 +1,10 @@
+<!-- create new post -->
+<app-create-post></app-create-post>
+
+
+<!-- Posts ! -->
+
+@for (post of allPosts(); track post.id) {
+<app-s-post [post]="post"></app-s-post>
+
+}
