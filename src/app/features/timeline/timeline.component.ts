@@ -22,7 +22,7 @@ export class TimelineComponent implements OnInit {
     this.postService.getAllPosts().subscribe({
       next: (res) => {
         this.allPosts.set(res.posts)
-        console.log(this.allPosts())
+        // console.log(this.allPosts())
       }
     })
   }

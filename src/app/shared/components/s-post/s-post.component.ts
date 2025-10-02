@@ -1,5 +1,5 @@
 import { Component, input, InputSignal, OnInit } from '@angular/core';
-import { initDropdowns, } from 'flowbite';
+import { initDropdowns, initFlowbite, } from 'flowbite';
 import { Post } from './models/post.interface';
 import { DatePipe } from '@angular/common';
 import { CommentComponent } from "../comment/comment.component";
@@ -16,8 +16,11 @@ export class SPostComponent implements OnInit {
 
 
   ngOnInit(): void {
-    initDropdowns();
+    // initFlowbite();
   }
-
+  ngAfterViewInit(): void {
+    initFlowbite();
+    // initDropdowns(); // ensure dropdown is initialized after DOM is ready
+  }
 
 }
