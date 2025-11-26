@@ -1,9 +1,14 @@
-import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter, withInMemoryScrolling, withViewTransitions } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
 import { headerInterceptor } from './core/interceptors/header-interceptor';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr';
+import { NgxSpinnerModule } from "ngx-spinner";
+import { loadingInterceptor } from './core/interceptors/loading-interceptor';
+import { errorsInterceptor } from './core/interceptors/errors-interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,6 +17,10 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes, withInMemoryScrolling({ scrollPositionRestoration: 'top' }),
       // withViewTransitions()
     ),
-    provideHttpClient(withFetch(), withInterceptors([headerInterceptor]))
+    importProvidersFrom(NgxSpinnerModule)
+    ,
+    provideHttpClient(withFetch(), withInterceptors([loadingInterceptor, headerInterceptor, errorsInterceptor])),
+    provideAnimations(),
+    provideToastr()
   ]
 };

@@ -2,6 +2,7 @@ import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -39,7 +40,7 @@ export class LoginComponent {
           this.isLoading.set(false)
 
           if (res.message === 'success') {
-
+            localStorage.setItem('token', res.token)
             setTimeout(() => {
               this.router.navigate(['/timeline'])
             }, 1000);

@@ -9,6 +9,7 @@ import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
 import { authGuard } from './core/guards/auth-guard';
+import { loggedGuard } from './core/guards/logged-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'timeline', pathMatch: 'full' },
@@ -22,7 +23,7 @@ export const routes: Routes = [
     },
 
     {
-        path: '', component: AuthLayoutComponent, children: [
+        path: '', component: AuthLayoutComponent, canActivate: [loggedGuard], children: [
             { path: 'login', component: LoginComponent, title: 'Login Page' },
             { path: 'register', component: RegisterComponent, title: 'register Page' },
         ]
