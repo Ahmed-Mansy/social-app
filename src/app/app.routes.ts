@@ -8,11 +8,12 @@ import { AuthLayoutComponent } from './core/layouts/auth-layout/auth-layout.comp
 import { LoginComponent } from './features/auth/login/login.component';
 import { RegisterComponent } from './features/auth/register/register.component';
 import { NotFoundComponent } from './features/not-found/not-found.component';
+import { authGuard } from './core/guards/auth-guard';
 
 export const routes: Routes = [
     { path: '', redirectTo: 'timeline', pathMatch: 'full' },
     {
-        path: '', component: MainLayoutComponent, children: [
+        path: '', component: MainLayoutComponent, canActivate: [authGuard], children: [
             { path: 'timeline', component: TimelineComponent, title: 'TimeLine Page' },
             { path: 'profile', component: ProfileComponent, title: 'Profile Page' },
             { path: 'details', component: DetailsPostComponent, title: 'Details Page' },
